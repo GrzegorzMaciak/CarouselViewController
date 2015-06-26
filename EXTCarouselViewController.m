@@ -7,7 +7,7 @@
 
 #import "EXTCarouselViewController.h"
 
-#if !__has_feature(objc_arc)
+#if __has_feature(objc_arc)
 #error EXTCarouselViewController must be built without ARC.
 // You can turn off ARC for the file by adding -fno-objc-arc compiler flag to the build phase for EXTCarouselViewController.m.
 #endif
