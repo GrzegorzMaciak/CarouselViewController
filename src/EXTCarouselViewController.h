@@ -31,7 +31,7 @@
 
 FOUNDATION_EXPORT NSString* const EXTCollectionViewElementKindCarouselBoundaryView;
 FOUNDATION_EXPORT NSString* const EXTCollectionViewCellIdCarousel;
-FOUNDATION_EXPORT NSInteger const EXTCarouselLeftBoundaryViewIndex;
+FOUNDATION_EXPORT NSInteger const EXTCarouselTopLeftBoundaryViewIndex;
 
 @interface EXTCarouselViewController : UICollectionViewController
 
@@ -41,24 +41,6 @@ FOUNDATION_EXPORT NSInteger const EXTCarouselLeftBoundaryViewIndex;
 
 @end
 
-#pragma mark - Layout
-
-@interface EXTCarouselFlowLayout : UICollectionViewLayout {
-    NSMutableDictionary* layoutInformation;
-    CGSize computationContentSize;
-}
-
-@property(nonatomic,readonly ,assign) CGSize itemSize;
-@property(nonatomic,readwrite,assign) BOOL disableLoopForOneItem; // default is YES
-
-/* UICollectionViewDelegate method forwarding
- 
- Carousel loop. Invoke it in UICollectionView (UIScrollView) delegate method `scrollViewWillEndDragging:withVelocity:targetContentOffset:`
- 
- */
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset;
-
-@end
 
 #pragma mark - Reusable view
 
@@ -74,3 +56,33 @@ FOUNDATION_EXPORT NSInteger const EXTCarouselLeftBoundaryViewIndex;
 @interface EXTCarouselViewCell : UICollectionViewCell <EXTCarouselReusableViewLoading>
 
 @end
+
+#if ! __has_feature(objc_arc)
+    #define EXTCAutorelease(__v) ([__v autorelease]);
+    #define EXTCReturnAutoreleased EXTCAutorelease
+
+    #define EXTCRetain(__v) ([__v retain]);
+    #define EXTCReturnRetained EXTCRetain
+
+    #define EXTCRelease(__v) ([__v release]);
+
+    #define EXTCDispatchQueueRelease(__v) (dispatch_release(__v));
+#else
+    // -fobjc-arc
+    #define EXTCAutorelease(__v)
+    #define EXTCReturnAutoreleased(__v) (__v)
+
+    #define EXTCRetain(__v)
+    #define EXTCReturnRetained(__v) (__v)
+
+    #define EXTCRelease(__v)
+
+// If OS_OBJECT_USE_OBJC=1, then the dispatch objects will be treated like ObjC objects
+// and will participate in ARC.
+// See the section on "Dispatch Queues and Automatic Reference Counting" in "Grand Central Dispatch (GCD) Reference" for details.
+    #if OS_OBJECT_USE_OBJC
+        #define EXTCDispatchQueueRelease(__v)
+    #else
+        #define EXTCDispatchQueueRelease(__v) (dispatch_release(__v));
+    #endif
+#endif

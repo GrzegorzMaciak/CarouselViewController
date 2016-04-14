@@ -3,16 +3,20 @@
 //  CarouselDemo
 //
 //  Created by Grzegorz Maciak on 25.06.2015.
-//  Copyright (c) 2015 __ORGANIZATION_NAME__. All rights reserved.
+//  Copyright (c) 2015 Grzegorz Maciak. All rights reserved.
 //
 
 #import "CarouselDemoViewController.h"
 #import "CarouselDemoViewCell.h"
 #import "UIImage+Mock.h"
 
+#import "EXTHorizontalCarouselFlowLayout.h"
+#import "EXTPagedCarouselFlowLayout.h"
+
 @interface CarouselDemoViewController () {
     UIButton* pagesAmountChangeButton;
     UIButton* onePageModeButton;
+    UIButton* directionSwitch;
 }
 
 @end
@@ -48,6 +52,32 @@
     [button addTarget:self action:@selector(onPageMode:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     onePageModeButton = button;
+    
+    if ([self.collectionViewLayout isKindOfClass:[EXTPagedCarouselFlowLayout class]]) {
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:@"Horizontal" forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor darkGrayColor];
+        button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [button addTarget:self action:@selector(onScrollDirection:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:button];
+        directionSwitch = button;
+    }
+}
+
+- (void)onScrollDirection:(UIButton*)sender {
+    switch (sender.tag) {
+        case 0:
+            [sender setTitle:@"Vertical" forState:UIControlStateNormal];
+            [(EXTPagedCarouselFlowLayout*)self.collectionView.collectionViewLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+            sender.tag = 1;
+            break;
+        default:
+            [sender setTitle:@"Horizontal" forState:UIControlStateNormal];
+            [(EXTPagedCarouselFlowLayout*)self.collectionView.collectionViewLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+            sender.tag = 0;
+            break;
+    }
+    [(EXTPagedCarouselFlowLayout*)self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)onPagesAmount:(UIButton*)sender {
@@ -79,19 +109,21 @@
     if (sender.tag == 0) {
         [sender setTitle:@"Enable loop for single page" forState:UIControlStateNormal];
         sender.tag = 1;
-        [(EXTCarouselFlowLayout*)self.collectionView.collectionViewLayout setDisableLoopForOneItem:YES];
+        [(EXTPagedCarouselFlowLayout*)self.collectionView.collectionViewLayout setDisableLoopForOneItem:YES];
     }else{
         [sender setTitle:@"Disable loop for single page" forState:UIControlStateNormal];
         sender.tag = 0;
-        [(EXTCarouselFlowLayout*)self.collectionView.collectionViewLayout setDisableLoopForOneItem:NO];
+        [(EXTPagedCarouselFlowLayout*)self.collectionView.collectionViewLayout setDisableLoopForOneItem:NO];
     }
-    [(EXTCarouselFlowLayout*)self.collectionView.collectionViewLayout invalidateLayout];
+    [(EXTPagedCarouselFlowLayout*)self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     pagesAmountChangeButton.frame = CGRectMake(10.0f, 20.0f, 150.0f, 20.0f);
-    onePageModeButton.frame = CGRectMake(CGRectGetMaxX(pagesAmountChangeButton.frame) + 5.0f, 20.0f, 200.0f, 20.0f);
+    onePageModeButton.frame = CGRectMake(10.0f, CGRectGetMaxY(pagesAmountChangeButton.frame) + 10.0f, 200.0f, 20.0f);
+    [directionSwitch sizeToFit];
+    directionSwitch.frame = CGRectMake(10.0f, CGRectGetMaxY(onePageModeButton.frame) + 10.0f, directionSwitch.bounds.size.width + 20.0f, 20.0f);
 }
 
 - (UIImage*)imageForPage:(NSInteger)index {

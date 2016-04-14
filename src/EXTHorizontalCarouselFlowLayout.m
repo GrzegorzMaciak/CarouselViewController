@@ -1,79 +1,20 @@
 //
-//  EXTCarouselViewController.m
+//  EXTCarouselFlowLayout.m
+//  CarouselDemo
 //
-//  Created by Grzegorz Maciak on 24.06.2015.
+//  Created by Grzegorz Maciak on 14.09.2015.
 //  Copyright (c) 2015 Grzegorz Maciak. All rights reserved.
 //
 
-#import "EXTCarouselViewController.h"
+#import "EXTHorizontalCarouselFlowLayout.h"
 
-#if __has_feature(objc_arc)
-#error EXTCarouselViewController must be built without ARC.
-// You can turn off ARC for the file by adding -fno-objc-arc compiler flag to the build phase for EXTCarouselViewController.m.
-#endif
-
-@implementation EXTCarouselViewController
-
-+ (Class)carouselCellClass{
-    return [EXTCarouselViewCell class];
-}
-
-+ (Class)carouselBoundaryViewClass {
-    return [self carouselCellClass];
-}
-
--(void) viewDidLoad {
-    [super viewDidLoad];
-    
-    [self.collectionView registerClass:[[self class] carouselCellClass] forCellWithReuseIdentifier:EXTCollectionViewCellIdCarousel];
-    [self.collectionView registerClass:[[self class] carouselBoundaryViewClass] forSupplementaryViewOfKind:EXTCollectionViewElementKindCarouselBoundaryView withReuseIdentifier:EXTCollectionViewElementKindCarouselBoundaryView];
-}
-
-#pragma mark <UICollectionViewDataSource>
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _items.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell<EXTCarouselReusableViewLoading> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:EXTCollectionViewCellIdCarousel forIndexPath:indexPath];
-    [cell reloadData:self.items[indexPath.item]];
-    return cell;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if ([kind isEqualToString:EXTCollectionViewElementKindCarouselBoundaryView]) {
-        UICollectionReusableView<EXTCarouselReusableViewLoading> *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:kind forIndexPath:indexPath];
-        if (indexPath.item == EXTCarouselLeftBoundaryViewIndex) {
-            [view reloadData:[self.items lastObject]];
-        }else{
-            [view reloadData:[self.items firstObject]];
-        }
-        return view;
-    }
-    return nil;
-}
-
-#pragma mark <UIScrollViewDelegate>
-
-// Carousel loop
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    [(EXTCarouselFlowLayout*)self.collectionView.collectionViewLayout scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
-}
-
-@end
-
-#pragma mark - Layout
-
-NSString* const EXTCollectionViewElementKindCarouselBoundaryView    = @"EXTCollectionViewElementKindCarouselBoundaryView";
-NSString* const EXTCollectionViewCellIdCarousel                     = @"EXTCollectionViewCarouselCell";
-NSInteger const EXTCarouselLeftBoundaryViewIndex                    = (-1);
-
-@implementation EXTCarouselFlowLayout
+@implementation EXTHorizontalCarouselFlowLayout
 
 - (void)dealloc{
-    [layoutInformation release];
+    EXTCRelease(layoutInformation)
+#if ! __has_feature(objc_arc)
     [super dealloc];
+#endif
 }
 
 - (instancetype)init{
@@ -88,6 +29,7 @@ NSInteger const EXTCarouselLeftBoundaryViewIndex                    = (-1);
     self.collectionView.pagingEnabled = YES;
     self.collectionView.alwaysBounceVertical = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
+    self.collectionView.showsHorizontalScrollIndicator = NO;
     
     _itemSize = self.collectionView.frame.size;
     
@@ -143,7 +85,7 @@ NSInteger const EXTCarouselLeftBoundaryViewIndex                    = (-1);
             NSMutableArray* boundaryElementsLayoutAttributes = layoutInformation[EXTCollectionViewElementKindCarouselBoundaryView] ?: [NSMutableArray arrayWithCapacity:2];
             [boundaryElementsLayoutAttributes removeAllObjects];
             
-            layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:EXTCollectionViewElementKindCarouselBoundaryView withIndexPath:[NSIndexPath indexPathForItem:EXTCarouselLeftBoundaryViewIndex inSection:0]];
+            layoutAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:EXTCollectionViewElementKindCarouselBoundaryView withIndexPath:[NSIndexPath indexPathForItem:EXTCarouselTopLeftBoundaryViewIndex inSection:0]];
             layoutAttributes.frame = CGRectMake(-self.itemSize.width, 0.0f, self.itemSize.width, self.itemSize.height);
             [boundaryElementsLayoutAttributes addObject:layoutAttributes];
             
@@ -177,7 +119,7 @@ NSInteger const EXTCarouselLeftBoundaryViewIndex                    = (-1);
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     if ([elementKind isEqualToString:EXTCollectionViewElementKindCarouselBoundaryView]) {
-        return layoutInformation[EXTCollectionViewElementKindCarouselBoundaryView][indexPath.item == EXTCarouselLeftBoundaryViewIndex ? 0 : 1];;
+        return layoutInformation[EXTCollectionViewElementKindCarouselBoundaryView][indexPath.item == EXTCarouselTopLeftBoundaryViewIndex ? 0 : 1];;
     }
     return nil;
 }
@@ -194,9 +136,26 @@ NSInteger const EXTCarouselLeftBoundaryViewIndex                    = (-1);
     return CGSizeZero;
 }
 
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+    if (!_disableLoopForOneItem || computationContentSize.width > self.collectionView.bounds.size.width) {
+        CGPoint contentOffset = self.collectionView.contentOffset;
+        if (proposedContentOffset.x < -1.0f) {
+            contentOffset.x = computationContentSize.width + contentOffset.x;
+            [self.collectionView setContentOffset:contentOffset animated:NO];
+            proposedContentOffset.x = computationContentSize.width - self.collectionView.bounds.size.width;
+        }
+        else if (proposedContentOffset.x > computationContentSize.width - self.collectionView.bounds.size.width + 1.0f) {
+            contentOffset.x = contentOffset.x - computationContentSize.width;
+            [self.collectionView setContentOffset:contentOffset animated:NO];
+            proposedContentOffset.x = 0.0f;
+        }
+    }
+    return proposedContentOffset;
+}
+
 #pragma mark <UIScrollViewDelegate>
 
-// Carousel loop
+// Carousel loop ( an option, by default handled by -targetContentOffsetForProposedContentOffset:withScrollingVelocity: )
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     if (!_disableLoopForOneItem || computationContentSize.width > scrollView.bounds.size.width) {
         CGPoint contentOffset = scrollView.contentOffset;
@@ -228,15 +187,5 @@ NSInteger const EXTCarouselLeftBoundaryViewIndex                    = (-1);
 //        (*targetContentOffset).x = 0.0f;
 //    }
 //}
-
-@end
-
-#pragma mark - Cell
-
-@implementation EXTCarouselViewCell
-
-- (void)reloadData:(id)cellData {
-    // override
-}
 
 @end

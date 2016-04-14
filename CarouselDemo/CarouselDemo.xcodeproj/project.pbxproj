@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A63D05BB1CBFB4F200507164 /* EXTCarouselViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A63D05B61CBFB4F200507164 /* EXTCarouselViewController.m */; };
+		A63D05BC1CBFB4F200507164 /* EXTHorizontalCarouselFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A63D05B81CBFB4F200507164 /* EXTHorizontalCarouselFlowLayout.m */; };
+		A63D05BD1CBFB4F200507164 /* EXTPagedCarouselFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A63D05BA1CBFB4F200507164 /* EXTPagedCarouselFlowLayout.m */; };
+		A6B5BBA01BC6C57700240B9F /* PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B5BB9F1BC6C57700240B9F /* PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.m */; };
 		A6EF9E021B3CAD56003D0B46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EF9E011B3CAD56003D0B46 /* main.m */; };
 		A6EF9E051B3CAD56003D0B46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EF9E041B3CAD56003D0B46 /* AppDelegate.m */; };
 		A6EF9E0D1B3CAD56003D0B46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6EF9E0C1B3CAD56003D0B46 /* Images.xcassets */; };
@@ -15,7 +19,6 @@
 		A6EF9E4C1B3CCA3C003D0B46 /* CarouselDemoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EF9E451B3CCA3C003D0B46 /* CarouselDemoViewCell.m */; };
 		A6EF9E4D1B3CCA3C003D0B46 /* CarouselDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EF9E471B3CCA3C003D0B46 /* CarouselDemoViewController.m */; };
 		A6EF9E561B3CCA72003D0B46 /* UIImage+Mock.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EF9E541B3CCA72003D0B46 /* UIImage+Mock.m */; };
-		A6EF9E5C1B3CCF6F003D0B46 /* EXTCarouselViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6EF9E5B1B3CCF6F003D0B46 /* EXTCarouselViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A63D05B51CBFB4F200507164 /* EXTCarouselViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTCarouselViewController.h; sourceTree = "<group>"; };
+		A63D05B61CBFB4F200507164 /* EXTCarouselViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTCarouselViewController.m; sourceTree = "<group>"; };
+		A63D05B71CBFB4F200507164 /* EXTHorizontalCarouselFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTHorizontalCarouselFlowLayout.h; sourceTree = "<group>"; };
+		A63D05B81CBFB4F200507164 /* EXTHorizontalCarouselFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTHorizontalCarouselFlowLayout.m; sourceTree = "<group>"; };
+		A63D05B91CBFB4F200507164 /* EXTPagedCarouselFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTPagedCarouselFlowLayout.h; sourceTree = "<group>"; };
+		A63D05BA1CBFB4F200507164 /* EXTPagedCarouselFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTPagedCarouselFlowLayout.m; sourceTree = "<group>"; };
+		A6B5BB9E1BC6C57700240B9F /* PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.h; sourceTree = "<group>"; };
+		A6B5BB9F1BC6C57700240B9F /* PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.m; sourceTree = "<group>"; };
 		A6EF9DFC1B3CAD56003D0B46 /* CarouselDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarouselDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6EF9E001B3CAD56003D0B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6EF9E011B3CAD56003D0B46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -45,8 +56,6 @@
 		A6EF9E471B3CCA3C003D0B46 /* CarouselDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarouselDemoViewController.m; sourceTree = "<group>"; };
 		A6EF9E531B3CCA72003D0B46 /* UIImage+Mock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Mock.h"; sourceTree = "<group>"; };
 		A6EF9E541B3CCA72003D0B46 /* UIImage+Mock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Mock.m"; sourceTree = "<group>"; };
-		A6EF9E5A1B3CCF6F003D0B46 /* EXTCarouselViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EXTCarouselViewController.h; path = ../../EXTCarouselViewController.h; sourceTree = "<group>"; };
-		A6EF9E5B1B3CCF6F003D0B46 /* EXTCarouselViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EXTCarouselViewController.m; path = ../../EXTCarouselViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +76,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A63D05B41CBFB4F200507164 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A63D05B51CBFB4F200507164 /* EXTCarouselViewController.h */,
+				A63D05B61CBFB4F200507164 /* EXTCarouselViewController.m */,
+				A63D05B71CBFB4F200507164 /* EXTHorizontalCarouselFlowLayout.h */,
+				A63D05B81CBFB4F200507164 /* EXTHorizontalCarouselFlowLayout.m */,
+				A63D05B91CBFB4F200507164 /* EXTPagedCarouselFlowLayout.h */,
+				A63D05BA1CBFB4F200507164 /* EXTPagedCarouselFlowLayout.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		A6EF9DF31B3CAD56003D0B46 = {
 			isa = PBXGroup;
 			children = (
@@ -88,12 +110,13 @@
 		A6EF9DFE1B3CAD56003D0B46 /* CarouselDemo */ = {
 			isa = PBXGroup;
 			children = (
-				A6EF9E5A1B3CCF6F003D0B46 /* EXTCarouselViewController.h */,
-				A6EF9E5B1B3CCF6F003D0B46 /* EXTCarouselViewController.m */,
+				A63D05B41CBFB4F200507164 /* src */,
 				A6EF9E441B3CCA3C003D0B46 /* CarouselDemoViewCell.h */,
 				A6EF9E451B3CCA3C003D0B46 /* CarouselDemoViewCell.m */,
 				A6EF9E461B3CCA3C003D0B46 /* CarouselDemoViewController.h */,
 				A6EF9E471B3CCA3C003D0B46 /* CarouselDemoViewController.m */,
+				A6B5BB9E1BC6C57700240B9F /* PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.h */,
+				A6B5BB9F1BC6C57700240B9F /* PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.m */,
 				A6EF9E031B3CAD56003D0B46 /* AppDelegate.h */,
 				A6EF9E041B3CAD56003D0B46 /* AppDelegate.m */,
 				A6EF9E0C1B3CAD56003D0B46 /* Images.xcassets */,
@@ -184,7 +207,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0630;
-				ORGANIZATIONNAME = __ORGANIZATION_NAME__;
+				ORGANIZATIONNAME = "Grzegorz Maciak";
 				TargetAttributes = {
 					A6EF9DFB1B3CAD56003D0B46 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -238,12 +261,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6EF9E5C1B3CCF6F003D0B46 /* EXTCarouselViewController.m in Sources */,
 				A6EF9E051B3CAD56003D0B46 /* AppDelegate.m in Sources */,
+				A63D05BC1CBFB4F200507164 /* EXTHorizontalCarouselFlowLayout.m in Sources */,
 				A6EF9E021B3CAD56003D0B46 /* main.m in Sources */,
 				A6EF9E4D1B3CCA3C003D0B46 /* CarouselDemoViewController.m in Sources */,
+				A63D05BB1CBFB4F200507164 /* EXTCarouselViewController.m in Sources */,
 				A6EF9E4C1B3CCA3C003D0B46 /* CarouselDemoViewCell.m in Sources */,
+				A6B5BBA01BC6C57700240B9F /* PagedHorizontalVerticalCarouselFlowLayoutProofOfConcept.m in Sources */,
 				A6EF9E561B3CCA72003D0B46 /* UIImage+Mock.m in Sources */,
+				A63D05BD1CBFB4F200507164 /* EXTPagedCarouselFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

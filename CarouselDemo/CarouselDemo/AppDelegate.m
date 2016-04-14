@@ -3,11 +3,13 @@
 //  CarouselDemo
 //
 //  Created by Grzegorz Maciak on 25.06.2015.
-//  Copyright (c) 2015 __ORGANIZATION_NAME__. All rights reserved.
+//  Copyright (c) 2015 Grzegorz Maciak. All rights reserved.
 //
 
 #import "AppDelegate.h"
 #import "CarouselDemoViewController.h"
+#import "EXTPagedCarouselFlowLayout.h"
+#import "EXTHorizontalCarouselFlowLayout.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +23,8 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    EXTCarouselFlowLayout* layout = [[EXTCarouselFlowLayout alloc] init];
+    EXTHorizontalCarouselFlowLayout* layout = [[EXTHorizontalCarouselFlowLayout alloc] init];
+    //layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     CarouselDemoViewController* viewController = [[CarouselDemoViewController alloc] initWithCollectionViewLayout:layout];
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
