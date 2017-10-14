@@ -85,6 +85,7 @@ NSInteger const EXTCarouselLeftBoundaryViewIndex                    = (-1);
 }
 
 - (void)prepareLayout {
+    [super prepareLayout];
     self.collectionView.pagingEnabled = YES;
     self.collectionView.alwaysBounceVertical = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
